@@ -8,3 +8,7 @@ def curso(self):
     curso.save()
     documento = f"curso: {curso.nombre} - camada: {curso.camada}"
     return HttpResponse(documento)
+
+def profesores(self):
+    documento = f"Pagina de profesores"
+    return HttpResponse(documento)
