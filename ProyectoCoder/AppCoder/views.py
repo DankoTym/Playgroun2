@@ -59,6 +59,21 @@ def profesorFormulario(request):
 
     return render(request, 'AppCoder/profesorFormulario.html', {'miFormulario':miFormulario})
 
+def busquedaCamada(request):        #Esta buncion solo recibe el numero de camada que quiero buscar
+
+    return render(request, "AppCoder/busquedaCamada.html")
+
+def buscar(request):               #Esta es la funcion que busca la camada
+
+    #respuesta = f"Estoy buscando la camada nro: {request.GET['camada']}"
+    if request.GET['camada']:
+        camada =request.GET['camada']               #Hace que camada sea igual a lo que me mandan desde la vista.
+        cursos = Curso.objects.filter(camada=camada)    #Realisa una comparacion entre lo que busco y lo que hay cargado.
+        return render(request, "AppCoder/resultadosBusqueda.html", {'cursos':cursos, 'camada':camada})
+    else:
+        respuesta = "No se ingreso ninguna comisión" 
+        return HttpResponse(respuesta)
+
 
 def Inicio(self):
     plantilla = loader.get_template('AppCoder/inicio.html')   #es importante que la pagina de inicio, tenga un loader.

@@ -1,0 +1,19 @@
+{% extends "AppCoder/padre.html" %}
+{% load static %}
+{% block contenidoDeTitulo %}
+<h3>Resultado de su Busqueda</h3>
+{% endblock%}
+{% block contenidoQueCambia %}
+<h3>
+    Estamos buscando el curso de la comisión {{camada}}
+</h3>
+{% if cursos%}          <!-- Si encuentra lo buscado entra acá-->
+<ul> 
+    {% for curso in cursos%}     <!-- ciclo for para ir mostrando los cursos que cumplen mi condición-->
+    <li>{{curso.nombre}}</li>   <!-- Lista o ejecuta el comando que le doy-->
+    <li>{{curso.camada}}</li>
+    <br>                        <!-- Salto d linea-->
+    {% endfor%}
+</ul>
+{% endif %}
+{% endblock %}

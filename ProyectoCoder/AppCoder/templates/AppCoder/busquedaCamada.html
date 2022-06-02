@@ -1,0 +1,14 @@
+{% extends "AppCoder/padre.html" %}
+{% load static %}
+{% block contenidoDeTitulo %}
+<h3>Buscador de Camadas</h3>
+{% endblock%}
+{% block contenidoQueCambia %}
+
+<form action="{% url 'buscar'%}" method="GET">
+    <h1>Ingrese datos de la Camada que quiera Buscar:</h1>
+    <input type="numer" name="camada" placeholder="CAMADA" id="camada">
+    <input type="submit" value="Buscar">      
+</form>
+
+{% endblock %}
