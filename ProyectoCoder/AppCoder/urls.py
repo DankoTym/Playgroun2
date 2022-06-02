@@ -1,12 +1,15 @@
 from django.urls import path
 
-from AppCoder.views import curso, profesores     #----> si hago así, en el path no es necesario agregar views.
-#from AppCoder import views     #***hace algo similar al de arriba, solo que acá importo en general el views y no solo las clases curso y profe
+#from AppCoder.views import curso, profesores     #----> si hago así, en el path no es necesario agregar views.
+from AppCoder import views     #***hace algo similar al de arriba, solo que acá importo en general el views y no solo las clases curso y profe
 # si hago lo de arriba, debo definir como views.curso o views.profesores en el path()
-from AppCoder.views import mi_plantilla 
+#from AppCoder.views import Inicio 
 
 urlpatterns = [
-    path('profesores/', profesores),    #cuando lo generamos en la app, debemos cargar con el views.
-    path('curso/', curso), 
-    path('mi_plantilla/', mi_plantilla),
+    path('profesores/', views.profesores),    #cuando lo generamos en la app, debemos cargar con el views.
+    path('curso/', views.curso), 
+    path('', views.Inicio),
+    path('cursos/', views.cursos),
+    path('estudiantes/', views.estudiantes),
+    path('entregables/', views.entregables),
 ]
