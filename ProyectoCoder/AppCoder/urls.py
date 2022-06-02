@@ -6,10 +6,12 @@ from AppCoder import views     #***hace algo similar al de arriba, solo que acá
 #from AppCoder.views import Inicio 
 
 urlpatterns = [
-    path('profesores/', views.profesores, name="profesores"),    #cuando lo generamos en la app, debemos cargar con el views.
+    path('profesores/', views.Profesores, name="profesores"),    #cuando lo generamos en la app, debemos cargar con el views.
     path('curso/', views.curso, name="curso"), 
     path('', views.Inicio, name="inicio"),
     path('cursos/', views.cursos, name="cursos"),
     path('estudiantes/', views.estudiantes, name="estudiantes"),
     path('entregables/', views.entregables, name="entregables"),
+    path('cursoFormulario/', views.cursoFormulario, name="cursoFormulario"),
+    path('profesorFormulario/', views.profesorFormulario, name="profesorFormulario"),
 ]
