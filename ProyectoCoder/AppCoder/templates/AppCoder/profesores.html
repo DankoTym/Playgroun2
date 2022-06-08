@@ -1,8 +1,21 @@
 {% extends "AppCoder/padre.html" %}
 {% load static %}
+
 {% block contenidoDeTitulo %}
 <h2>Página de Profesores</h2>
 {% endblock%}
+
 {% block contenidoQueCambia %}
-<h3>Página de Profesores</h3>
+
+<h3>Listado de Profesores</h3>
+
+{% for profesor in profesores %}
+
+    <li>
+        <h5>-{{profesor}}</h5>
+    </li>
+
+
+{% endfor %}
+
 {% endblock %}
