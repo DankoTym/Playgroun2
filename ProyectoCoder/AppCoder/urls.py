@@ -19,5 +19,6 @@ urlpatterns = [
 
     path('profesores/', views.leerProfesores, name="Profesores"), #modificamos la ruta profesores para no generar varias a lo mismo
     path('eliminarProfesor/<nombre>', views.eliminarProfesor, name="eliminarProfesor"),
+    path('editarProfesor/<nombre>', views.editarProfesor, name="editarProfesor"),
 ]
  

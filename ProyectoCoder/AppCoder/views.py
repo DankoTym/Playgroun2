@@ -104,3 +104,24 @@ def eliminarProfesor(request, nombre):
     contexto = {'profesores':profesores}
     return render(request, 'AppCoder/profesores.html', contexto)    #vuelve al menú con los nuevos elementos
 
+# ACTUALIZAR ELEMENTOS:
+
+def editarProfesor(request, nombre):
+    profesor = Profesor.objects.get(nombre=nombre)      #traemos el elemento quye queremos modificar
+    if request.method == 'POST':
+        miFormulario = ProfesorFormulario(request.POST)
+        if miFormulario.is_valid():
+            informacion = miFormulario.cleaned_data
+            profesor.nombre = informacion['nombre']         #a diferencia del formulario, acá anteponemos el profesor. porque lo que está 
+            profesor.apellido = informacion['apellido']     #haciendo es extraer ese elemento, no cargando en una nueva variable
+            profesor.email = informacion['email']
+            profesor.profecion = informacion['profecion']
+            profesor.save()
+
+            profesores = Profesor.objects.all()                 
+            contexto = {'profesores':profesores}
+            return render(request, 'AppCoder/profesores.html', contexto)
+    else:
+        miFormulario = ProfesorFormulario(initial={'nombre':profesor.nombre, 'apellido':profesor.apellido, 'email':profesor.email, 'profecion':profesor.profecion})
+        contexto = {'miFormulario':miFormulario, 'nombre':nombre}
+        return render(request, 'AppCoder/editarProfesor.html', contexto)

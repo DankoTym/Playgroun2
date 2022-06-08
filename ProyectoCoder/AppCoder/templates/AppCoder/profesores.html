@@ -17,6 +17,8 @@
 
     <button>
         <a href="{% url 'eliminarProfesor' profesor.nombre %}">Eliminar</a>     <!-- Acá es donde genero el botón con el comando eliminar -->
+    
+        <a href="{% url 'editarProfesor' profesor.nombre %}">Editar</a>     <!-- Acá es donde genero el botón con el comando eliminar -->
     </button> 
 
 {% endfor %}
