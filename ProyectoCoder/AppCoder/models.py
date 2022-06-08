@@ -19,7 +19,7 @@ class Profesor(models.Model):
     profecion = models.CharField(max_length=30)
 
     def __str__(self) -> str:
-        return self.nombre+" "+str(self.profecion)
+        return self.nombre+" "+str(self.apellido)
 
 class Entregable(models.Model):
     nombre = models.CharField(max_length=30)

@@ -12,9 +12,12 @@
 {% for profesor in profesores %}
 
     <li>
-        <h5>-{{profesor}}</h5>
+        <h5>-{{profesor}}</h5>  <!-- Listo los elementos de mi class Profesor que pasé por contexto desde el views.py -->
     </li>
 
+    <button>
+        <a href="{% url 'eliminarProfesor' profesor.nombre %}">Eliminar</a>     <!-- Acá es donde genero el botón con el comando eliminar -->
+    </button> 
 
 {% endfor %}
 
