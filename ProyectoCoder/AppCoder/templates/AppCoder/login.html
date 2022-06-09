@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block contenidoDeTitulo %}
-<h2>Estudiantes</h2>
+<h2>Login</h2>
 {% endblock%}
 
 {% block contenidoQueCambia %}
@@ -10,8 +10,10 @@
 <h3>Listado de Estudiantes</h3>
 
 <form method="POST">{% csrf_token %}
-    Edita al studiante 
-    {{form.as_p}}                               <!-- Permite mostrar los campos del elemento -->
-    <input type="submit" value="Enviar"/>
+    <h1>Ingrese usuario y contraseña</h1>
+    {{ form.as_p }}                               <!-- Permite mostrar los campos del elemento -->
+    <button type="submit" value="Enviar">Inicio Sesion</button>
+
 </form>
+ 
 {% endblock %}

@@ -11,6 +11,6 @@
 
 <form method="POST">{% csrf_token %}
     Estás seguro de eliminar al studiante "{{object}}"
-    <input type="submit" value="SI"/>
- 
+    <input type="submit" value="SI"/><button><a href="{% url 'estudiante_list' %}">NO</a></button>
+</form>
 {% endblock %}

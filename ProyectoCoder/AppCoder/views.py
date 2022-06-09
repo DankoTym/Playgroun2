@@ -3,8 +3,16 @@ from django.shortcuts import render
 from AppCoder.models import Curso, Profesor, Estudiante
 from django.template import loader
 from AppCoder.forms import CursoFormulario, ProfesorFormulario
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+#----CRUD_VIEW
+from django.views.generic import ListView
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+
+
 from django.urls import reverse_lazy
+#----LOGIN
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login, authenticate #, logout
 
 # Create your views here.
 def curso(self):
@@ -158,4 +166,29 @@ class EstudianteEliminacion(DeleteView):
     model = Estudiante  
     success_url = reverse_lazy('estudiante_list')
 
-    
+#-------------------LOGIN---------
+
+def login_request(request):
+
+    if request.method == 'POST':
+        form = AuthenticationForm(render, data=request.POST)
+
+        if form.is_valid():
+            usuario = form.cleaned_data.get('username')
+            clave = form.cleaned_data.get('password')
+
+            #Autenticación
+            user = authenticate(userneme=usuario, password=clave)
+
+            if user is not None:
+
+                login(request, user)
+                return render(request, "AppCoder/inicio.html", {'mensaje':f'Bienvenido {usuario}'})    #si existe usuario, lo loguea
+            else:
+                return render(request, 'AppCoder/inicio.html', {'mensaje':'Usuario o contraseña incorrectos'})
+        
+        else:
+            return render(request, 'AppCoder/inicio.html', {'mensaje':'Error, Formulario Erroneo'})
+    else:
+        form = AuthenticationForm()
+        return render(request, 'AppCoder/login.html', {'form':form})

@@ -11,21 +11,21 @@
 
 {% for estudiante in object_list %}
 
-<li>{{estudiante}}</li>
-<button>
-    <a href="% url 'estudiante_detalle' estudiante.id %">Detalle</a>     <!-- Acá usamos el ID de dajngo -->
-</button>
-<button>
-    <a href="% url 'estudiante_editar' estudiante.id %">Editar</a>
-</button>
-<button>
-    <a href="% url 'estudiante_eliminar' estudiante.id %">Borrar</a>
-</button>
+    <li>{{estudiante}}</li>
+    <button>
+        <a href="{% url 'estudiante_detalle' estudiante.id %}">Detalle</a>     <!-- Acá usamos el ID de dajngo -->
+    </button>
+    <button>
+        <a href="{% url 'estudiante_editar' estudiante.id %}">Editar</a>
+    </button>
+    <button>
+        <a href="{% url 'estudiante_eliminar' estudiante.id %}">Borrar</a>
+    </button>
 {% endfor %}
 
 <br>
 <br>
 <button>
-    <a href="% url 'estudiante_crear' estudiante.id %">cargar</a>
+    <a href="{% url 'estudiante_crear' %}">cargar</a>
 </button>
 {% endblock %}

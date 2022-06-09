@@ -26,4 +26,6 @@ urlpatterns = [
     path('estudiante/nuevo/', views.EstudianteCrear.as_view(), name="estudiante_crear"),
     path('estudiante/edit/<pk>', views.EstudianteEdicion.as_view(), name="estudiante_editar"),
     path('estudiante/delete/<pk>', views.EstudianteEliminacion.as_view(), name="estudiante_eliminar"),
+    #---------------LOGIN--------------
+    path('login', views.login_request, name="login"),
 ]
