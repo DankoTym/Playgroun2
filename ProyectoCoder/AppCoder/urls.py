@@ -16,9 +16,14 @@ urlpatterns = [
     path('profesorFormulario/', views.profesorFormulario, name="profesorFormulario"),
     path('busquedaCamada/', views.busquedaCamada, name="BusquedaCamada"),
     path('buscar/', views.buscar, name="buscar"),
-
+    #--------------CRUD clasico
     path('profesores/', views.leerProfesores, name="Profesores"), #modificamos la ruta profesores para no generar varias a lo mismo
     path('eliminarProfesor/<nombre>', views.eliminarProfesor, name="eliminarProfesor"),
     path('editarProfesor/<nombre>', views.editarProfesor, name="editarProfesor"),
+    #--------------CRUD Desde Views----------------
+    path('estudiante/lista/', views.EstudiantesList.as_view(), name="estudiante_list"),
+    path('estudiante/<pk>', views.EstudiantesDitail.as_view(), name="estudiante_detalle"),        #el <pk> pasa de forma automatica el id por django
+    path('estudiante/nuevo/', views.EstudianteCrear.as_view(), name="estudiante_crear"),
+    path('estudiante/edit/<pk>', views.EstudianteEdicion.as_view(), name="estudiante_editar"),
+    path('estudiante/delete/<pk>', views.EstudianteEliminacion.as_view(), name="estudiante_eliminar"),
 ]
- 

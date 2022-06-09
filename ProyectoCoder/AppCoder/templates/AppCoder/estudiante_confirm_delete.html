@@ -1,0 +1,16 @@
+{% extends "AppCoder/padre.html" %}     <!--Por sintaxis de Dajngo se debe generar este .html si o si con _confirm_delete.html en el nombre-->
+{% load static %}
+
+{% block contenidoDeTitulo %}
+<h2>Estudiantes</h2>
+{% endblock%}
+
+{% block contenidoQueCambia %}
+
+<h3>Listado de Estudiantes</h3>
+
+<form method="POST">{% csrf_token %}
+    Estás seguro de eliminar al studiante "{{object}}"
+    <input type="submit" value="SI"/>
+ 
+{% endblock %}
