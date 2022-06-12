@@ -2,18 +2,18 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from AppCoder.models import Curso, Profesor, Estudiante
 from django.template import loader
-from AppCoder.forms import CursoFormulario, ProfesorFormulario
+from AppCoder.forms import CursoFormulario, ProfesorFormulario, UserRegistrationForm
 #----CRUD_VIEW
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-
-
 from django.urls import reverse_lazy
-#----LOGIN
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import login, authenticate #, logout
 
+#----LOGIN
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth import login, authenticate, logout
+#----------Mixin/Decoradores--------------
+from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 def curso(self):
     curso = Curso(nombre="Desarrollo Web", camada=16740)
@@ -138,7 +138,7 @@ def editarProfesor(request, nombre):
 
 #--------------LISTA_VIEWS----------
 
-class EstudiantesList(ListView):
+class EstudiantesList(LoginRequiredMixin, ListView): #Al agregar el LoginRequired acá, hacemos que el usuario deba estar logeado para tener acceso a esto
     model = Estudiante
     template_name = 'AppCoder/estudiantes_list.html'
 
@@ -171,24 +171,60 @@ class EstudianteEliminacion(DeleteView):
 def login_request(request):
 
     if request.method == 'POST':
-        form = AuthenticationForm(render, data=request.POST)
+        form = AuthenticationForm(render, request.POST)
 
         if form.is_valid():
-            usuario = form.cleaned_data.get('username')
-            clave = form.cleaned_data.get('password')
+            
+            # usuario = form.cleaned_data.get('username')
+            # clave = form.cleaned_data.get('password')
+            usuario = request.POST.get('username')
+            clave = request.POST.get('password')
+            user = authenticate(username=usuario, password=clave)
 
             #Autenticación
-            user = authenticate(userneme=usuario, password=clave)
+            #user = authenticate(userneme=usuario, password=clave)
 
             if user is not None:
-
-                login(request, user)
-                return render(request, "AppCoder/inicio.html", {'mensaje':f'Bienvenido {usuario}'})    #si existe usuario, lo loguea
+                login(request, user)    #si existe usuario, lo loguea
+                return render(request, 'AppCoder/inicio.html', {'mensaje':f'Bienvenido {usuario}'})    
             else:
                 return render(request, 'AppCoder/inicio.html', {'mensaje':'Usuario o contraseña incorrectos'})
-        
         else:
             return render(request, 'AppCoder/inicio.html', {'mensaje':'Error, Formulario Erroneo'})
     else:
         form = AuthenticationForm()
         return render(request, 'AppCoder/login.html', {'form':form})
+
+#--------- Registro------
+'''
+def register_request(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            form.save()
+            return render(request, 'AppCoder/inicio.html', {'mensaje':f"Usuario {username} creado"})
+        else:
+            return render(request, 'AppCoder/inicio.html', {'mensaje':"No se pudeo crear el usuario"})
+    else:
+        form = UserCreationForm()
+        return render(request, 'AppCoder/register.html', {'form':form})
+'''
+#---------Registro 2/ Para eliminar comentarios extra de Django-------
+
+def register_request(request):
+    if request.method == 'POST':
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            form.save()
+            return render(request, 'AppCoder/inicio.html', {'mensaje':f"Usuario {username} creado"})
+        else:
+            return render(request, 'AppCoder/inicio.html', {'mensaje':"No se pudeo crear el usuario"})
+    else:
+        form = UserRegistrationForm()
+        return render(request, 'AppCoder/register.html', {'form':form})
+
+#----------Mixin/Decoradores--------------
+
+

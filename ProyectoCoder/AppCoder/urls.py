@@ -28,4 +28,5 @@ urlpatterns = [
     path('estudiante/delete/<pk>', views.EstudianteEliminacion.as_view(), name="estudiante_eliminar"),
     #---------------LOGIN--------------
     path('login', views.login_request, name="login"),
+    path('registro', views.register_request, name="registro"), 
 ]
